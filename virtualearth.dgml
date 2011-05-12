@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dgml xmlns="http://edu.kde.org/marble/dgml/2.0">
+    <document>
+
+        <head>
+            <name>Virtual Earth</name>
+            <target>earth</target>
+            <theme>virtualearth</theme>
+            <icon pixmap="preview.png"/>
+            <visible>true</visible>
+            <description><![CDATA[<p>A <i>global map</i> provided by Microsoft.]]></description>
+            <zoom>
+                <minimum>   900  </minimum>
+                <maximum>  4000  </maximum>
+                <discrete> false </discrete>
+            </zoom>
+        </head>
+
+        <map bgcolor="#000000">
+            <canvas/>
+            <target/>
+            <layer name="virtualearth" backend="texture" >
+                <!-- OpenCycleMap mapnik rendered tiles expire after seven days
+                     or 604800 seconds -->
+                <texture name="mapnik_data" expire="604800" >
+                    <sourcedir format="JPG"> earth/virtualearth </sourcedir>
+                    <storageLayout levelZeroColumns="2" levelZeroRows="2" maximumTileLevel="16" mode="QuadTree" ></storageLayout>
+                    <projection name="Mercator" />
+                    <downloadUrl protocol="http" host="a0.ortho.tiles.virtualearth.net" path="/tiles/a{quadIndex}.jpg" query="g=45" />
+                    <downloadUrl protocol="http" host="a1.ortho.tiles.virtualearth.net" path="/tiles/a{quadIndex}.jpg" query="g=45" />
+                    <downloadUrl protocol="http" host="a2.ortho.tiles.virtualearth.net" path="/tiles/a{quadIndex}.jpg" query="g=45" />
+                    <downloadUrl protocol="http" host="a3.ortho.tiles.virtualearth.net" path="/tiles/a{quadIndex}.jpg" query="g=45" />
+                    <downloadPolicy usage="Browse" maximumConnections="20" />
+                    <downloadPolicy usage="Bulk" maximumConnections="2" />
+                </texture>
+            </layer>
+            <layer name="standardplaces" backend="geodata">
+               <geodata name="cityplacemarks">
+                    <sourcefile format="KML">cityplacemarks.kml</sourcefile>
+                    <pick>placemark</pick>
+                </geodata>
+                <geodata name="baseplacemarks">
+                    <sourcefile format="KML">baseplacemarks.kml</sourcefile>
+                    <pick>placemark</pick>
+                </geodata>
+                <geodata name="elevplacemarks">
+                    <sourcefile format="KML">elevplacemarks.kml</sourcefile>
+                    <pick>placemark</pick>
+                </geodata>
+                <geodata name="otherplacemarks">
+                    <sourcefile
+                    format="KML">otherplacemarks.kml</sourcefile>
+                    <pick>placemark</pick>
+                </geodata>
+                <geodata name="boundaryplacemarks">
+                    <sourcefile format="KML">boundaryplacemarks</sourcefile>
+                    <pick>placemark</pick>
+                </geodata>
+            </layer>            
+        </map>
+        <settings>
+            <property name="coordinate-grid">
+                <value>true</value>
+                <available>true</available>
+            </property>
+            <property name="overviewmap">
+                <value>true</value>
+                <available>true</available>
+            </property>
+            <property name="compass">
+                <value>true</value>
+                <available>true</available>
+            </property>
+            <property name="scalebar">
+                <value>true</value>
+                <available>true</available>
+            </property>
+        </settings>
+        <legend>
+            <section name="traffic" checkable="false" spacing="12">
+            </section>
+
+            <section name="coordinate-grid" checkable="true" connect="coordinate-grid" spacing="12">
+                <heading>Coordinate Grid</heading>
+            </section>
+        </legend>
+    </document>
+</dgml>
